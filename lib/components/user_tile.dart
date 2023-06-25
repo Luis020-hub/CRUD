@@ -21,6 +21,7 @@ class UserTile extends StatelessWidget {
       title: Text(user.name),
       subtitle: Text(user.email),
       trailing: Container(
+        alignment: Alignment.center,
         width: 100,
         child: Row(
           children: [
