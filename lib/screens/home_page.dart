@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_crud/screens/user_edit.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,6 +16,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: ((context) => const ManageUser())));
+        },
+        child: const Icon(Icons.person),
+      ),
       appBar: AppBar(
         title: const Text('User list'),
         centerTitle: true,
@@ -33,33 +41,45 @@ class _HomePageState extends State<HomePage> {
                         child: CircularProgressIndicator(color: Colors.green),
                       );
                     }
-
                     if (snapshots.hasData) {
                       return ListView.builder(
                         itemCount: snapshots.data!.docs.length,
                         itemBuilder: (context, index) {
                           final DocumentSnapshot records =
                               snapshots.data!.docs[index];
-                          return Slidable(
-                            startActionPane: ActionPane(
-                              motion: const StretchMotion(),
-                              children: [
-                                SlidableAction(
-                                  onPressed: (context) {},
-                                  icon: Icons.phone,
-                                  backgroundColor: Colors.blue,
-                                )
-                              ],
-                            ),
-                            child: ListTile(
-                              title: Text(records["name"]),
-                              subtitle: Text(records["email"]),
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: Slidable(
+                              startActionPane: ActionPane(
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {},
+                                    icon: Icons.edit_note,
+                                    backgroundColor: Colors.blue,
+                                  )
+                                ],
+                              ),
+                              endActionPane: ActionPane(
+                                motion: const StretchMotion(),
+                                children: [
+                                  SlidableAction(
+                                    onPressed: (context) {},
+                                    icon: Icons.delete_outline,
+                                    backgroundColor: Colors.red,
+                                  )
+                                ],
+                              ),
+                              child: ListTile(
+                                tileColor: Colors.greenAccent,
+                                title: Text(records["name"]),
+                                subtitle: Text(records["email"]),
+                              ),
                             ),
                           );
                         },
                       );
                     } else {}
-
                     return const Center(
                       child: CircularProgressIndicator(color: Colors.red),
                     );
