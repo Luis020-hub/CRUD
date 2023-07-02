@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_crud/models/user_model.dart';
 
 final CollectionReference _user =
-    FirebaseFirestore.instance.collection("users");
+    FirebaseFirestore.instance.collection("Users");
 
 class user_controller {
   Future add_user(user_model user) async {

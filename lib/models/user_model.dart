@@ -4,7 +4,7 @@ class user_model {
   final id, name, email, address;
 
   user_model({
-    required this.id,
+    this.id,
     required this.name,
     required this.email,
     required this.address,

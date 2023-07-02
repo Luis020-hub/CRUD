@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_crud/screens/add_or_edit_user.dart';
@@ -11,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final CollectionReference _users =
+  final CollectionReference _Users =
       FirebaseFirestore.instance.collection("Users");
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 500,
                 child: StreamBuilder(
-                  stream: _users.snapshots(),
+                  stream: _Users.snapshots(),
                   builder: (context, AsyncSnapshot snapshots) {
                     if (snapshots.connectionState == ConnectionState.waiting) {
                       return const Center(

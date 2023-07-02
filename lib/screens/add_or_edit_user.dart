@@ -1,6 +1,8 @@
 // ignore_for_file: unused_field, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_crud/controllers/user_controller.dart';
+import 'package:flutter_crud/models/user_model.dart';
 
 import '../components/mytextfield.dart';
 
@@ -39,6 +41,7 @@ class _ManageUserState extends State<ManageUser> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Form(
+                  key: _form_key,
                   child: Column(
                     children: [
                       MyTextField(
@@ -56,7 +59,7 @@ class _ManageUserState extends State<ManageUser> {
                       MyTextField(
                         hintedtext: "Your address",
                         labeledtext: "Address",
-                        mycontroller: email,
+                        mycontroller: address,
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -65,7 +68,16 @@ class _ManageUserState extends State<ManageUser> {
               ),
               const SizedBox(height: 10),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (_form_key.currentState!.validate()) {
+                    _form_key.currentState!.save();
+                    user_controller().add_user(user_model(
+                        name: name.text,
+                        email: email.text,
+                        address: address.text));
+                  }
+                  Navigator.pop(context);
+                },
                 child: const Text('Save'),
               ),
             ],
