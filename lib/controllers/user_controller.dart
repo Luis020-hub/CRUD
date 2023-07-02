@@ -12,7 +12,7 @@ class user_controller {
   }
 
   Future update_user(user_model user) async {
-    await _user.doc().update(user.add_data());
+    await _user.doc(user.id).update(user.add_data());
   }
 
   Future delete_user(user_model user) async {

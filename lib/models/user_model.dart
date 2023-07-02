@@ -5,9 +5,9 @@ class user_model {
 
   user_model({
     this.id,
-    required this.name,
-    required this.email,
-    required this.address,
+    this.name,
+    this.email,
+    this.address,
   });
 
   Map<String, dynamic> add_data() {

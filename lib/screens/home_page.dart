@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_crud/controllers/user_controller.dart';
+import 'package:flutter_crud/models/user_model.dart';
 import 'package:flutter_crud/screens/add_or_edit_user.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -56,7 +58,23 @@ class _HomePageState extends State<HomePage> {
                                 motion: const StretchMotion(),
                                 children: [
                                   SlidableAction(
-                                    onPressed: (context) {},
+                                    onPressed: (context) {
+                                      final user = user_model(
+                                        id: records.id,
+                                        name: records["name"],
+                                        email: records["email"],
+                                        address: records["address"],
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: ((context) => ManageUser(
+                                                user: user,
+                                                index: index,
+                                              )),
+                                        ),
+                                      );
+                                    },
                                     icon: Icons.edit_note,
                                     backgroundColor: Colors.blue,
                                   )
@@ -66,7 +84,10 @@ class _HomePageState extends State<HomePage> {
                                 motion: const StretchMotion(),
                                 children: [
                                   SlidableAction(
-                                    onPressed: (context) {},
+                                    onPressed: (context) {
+                                      user_controller().delete_user(
+                                          user_model(id: records.id));
+                                    },
                                     icon: Icons.delete_outline,
                                     backgroundColor: Colors.red,
                                   )
